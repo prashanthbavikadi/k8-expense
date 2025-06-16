@@ -1,0 +1,27 @@
+# k8 will inform image address how k8 should run that image
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mysql
+
+  labels:
+    app: mysql
+    purpose: expense
+    tier: database
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+      tier: database
+  template:
+    metadata:
+      labels:
+        app: mysql 
+        tier: database
+        project: expense
+        extra-key: extra-value   
+    spec:
+      containers:
+      - name: mysql
+        image: prashanth3010/mysql:v1.0
