@@ -1,30 +1,31 @@
 # k8 will inform image address how k8 should run that image
+
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: backend
+  name: mysql
   namespace: expense
   labels:
-    app: backend
+    app: mysql
     purpose: expense
-    tier: app
+    tier: database
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: backend
-      tier: app
+      app: mysql
+      tier: database
   template:
     metadata:
       labels:
-        app: backend 
-        tier: app
+        app: mysql 
+        tier: database
         project: expense
         extra-key: extra-value   
     spec:
       containers:
-      - name: backend
-        image: prashanth3010/backend:v1.0
+      - name: mysql
+        image: prashanth3010/mysql:v1.0
 
 -----------------
 
@@ -40,5 +41,6 @@ spec:
     tier: database
   ports:
   - protocol: TCP
-    port: 8080 #service port
-    targetPort: 8080 # traget port
+    port: 3306 #service port
+    targetPort: 3306 # traget port
+
