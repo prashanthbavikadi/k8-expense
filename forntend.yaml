@@ -1,14 +1,14 @@
 
 # k8 will inform image address how k8 should run that image
 
-kind: ConfigMap
-apiVersion: v1
+# kind: ConfigMap
+# apiVersion: v1
 
-metadata:
-  name: frontend
-  namesapce: expense
-data:
-  db_Host: mysql  
+# metadata:
+#   name: frontend
+#   namesapce: expense
+# data:
+#   db_Host: mysql  
 
 ---------------------  
 
