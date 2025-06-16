@@ -1,0 +1,62 @@
+
+# k8 will inform image address how k8 should run that image
+
+kind: ConfigMap
+apiVersion: v1
+
+metadata:
+  name: frontend
+  namesapce: expense
+data:
+  db_Host: mysql  
+
+---------------------  
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    app: frontend
+    purpose: expense
+    tier: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: frontend 
+        tier: web
+        project: expense
+        extra-key: extra-value   
+    spec:
+      containers:
+      - name: frontend
+        image: prashanth3010 frontend:v1.0
+        envFrom:
+        - configMapRef:
+            name: frontend
+
+-----------------
+
+apiVersion: v1
+kind: Service          # here service will conect to pods
+metadata:              # pop to pod communication build service we use 
+  name: frontend         # frontend has to connnect msql pod , we have to estb
+spec:
+  type: LoadBalancer
+  selector:
+    labels:
+    app: frontend
+    purpose: expense
+    tier: app
+  ports:
+  - protocol: TCP
+    port: 8080 #service port
+    targetPort: 8080 # traget port
