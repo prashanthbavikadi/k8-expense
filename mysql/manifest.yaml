@@ -25,3 +25,20 @@ spec:
       containers:
       - name: mysql
         image: prashanth3010/mysql:v1.0
+
+-----------------
+
+apiVersion: v1
+kind: Service          # here service will conect to pods
+metadata:              # pop to pod communication build service we use 
+  name: mysql          # backend has to connnect msql pod , we have to estb
+spec:
+  selector:
+    labels:
+    app: mysql
+    purpose: expense
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 3306 #service port
+    targetPort: 3306 # traget port
